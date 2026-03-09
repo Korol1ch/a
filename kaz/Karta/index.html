@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoSen — Ақтауды көгалдандыру</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ---------- ХЕДЕР ---------- */
+    .header {
+      width: 100%;
+      position: relative;
+      height: 8vh;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      background: white;
+    }
+
+    .header-section {
+      width: 85%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.7vw;
+      font-weight: 700;
+      color: #111;
+      position: relative;
+      left: 0;
+      cursor: pointer;
+    }
+
+    .menu {
+      width: 40vw;
+      height: auto;
+      position: relative;
+      left: 10vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-text {
+      color: #111;
+      font-weight: 400;
+      font-size: 1vw;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .menu-text:hover {
+      transform: scale(1.01);
+      transition: transform 0.15s ease;
+      color: #2e7d32;
+    }
+
+    /* ---------- КАРТА ---------- */
+    .map-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+      flex-grow: 1;
+    }
+
+    #map {
+      width: 85%;
+      height: calc(100vh - 180px);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ---------- ФУТЕР ---------- */
+    .footer {
+      background: #222;
+      color: #fff;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer a {
+      color: #4caf50;
+      margin: 0 6px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: #81c784;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .header-section {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .menu {
+        gap: 15px;
+      }
+
+      #map {
+        width: 95%;
+        height: 400px;
+      }
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-section">
+      <a href="../../index.html"><p class="logo">EcoSen</p></a>
+      <div class="menu">
+        <a class="a1" href="../AboutUs/index.html"><p class="menu-text">Біз туралы</p></a>
+        <a href="../project/index.html"><p class="menu-text">Сұрыптау</p></a>
+        <a href="#"><p class="menu-text">Карта</p></a>
+        <a href="../projects/index.html"><p class="menu-text">Жобалар</p></a>
+        <a class="a2" href="#"><p class="menu-text">Жаңалықтар</p></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-wrapper">
+    <div id="map"></div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 EcoSen. Барлық құқықтар қорғалған.</p>
+    <p>Ақтау, Қазақстан | info@ecosen.kz | +7 (700) 123-45-67</p>
+    <p>
+      Біз әлеуметтік желілердеміз:
+      <a href="#">Instagram</a> |
+      <a href="https://www.youtube.com/@ecosen">YouTube</a>
+    </p>
+  </footer>
+
+  <script>
+  const map = L.map('map').setView([43.65, 51.17], 12);
+
+  L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { attribution: '&copy; Esri' }
+  ).addTo(map);
+
+  L.control.scale().addTo(map);
+
+  /* ================= ЖАСЫЛ АУМАКТАР ================= */
+  const greenZones = [
+    { name: "Маңғыстау ботаникалық бағы — үлкен демалыс аумағы", c: [43.6506, 51.1609] },
+    { name: "14 мкр сквері — 14-ші шағын ауданның қоғамдық сквері", c: [43.654606, 51.144531] },
+    { name: "11 мкр сквері — балалар алаңымен сквер", c: [43.655483, 51.154829] },
+    { name: "7 мкр сквері — шағын демалыс аумағы", c: [43.6378, 51.1503] },
+    { name: "15 мкр жағалау — теңізге көрінісі бар серуен аумағы", c: [43.662232, 51.133089] },
+    { name: "4 мкр жағалау — серуендеу жолдары бар жағалау аумағы", c: [43.630969, 51.161261] },
+    { name: "1 мкр жағалау — су жанында серуендеу аумағы", c: [43.629742, 51.178294] },
+    { name: "12 мкр ауласы — жасылдандыруға арналған аумақ", c: [43.661189, 51.150057] },
+    { name: "5 мкр ауласы — тұрғын үйлер арасындағы аумақ", c: [43.639505, 51.159731] },
+    { name: "9 мкр ауласы — жасылдандыруға арналған аула", c: [43.648316, 51.152237] },
+    { name: "26 мкр ауласы — жасылдандыру мүмкіндігі бар", c: [43.66119, 51.166397] },
+    { name: "27 мкр ауласы — демалысқа арналған аумақ", c: [43.66591, 51.160448] }
+  ];
+
+  /* ================= ҚАУІПТІ АУМАКТАР ================= */
+  const dangerousZones = [
+    { name: "Қошқар-Ата қалдық қоймасы — радиоактивті аумақ", circle: true, c: [43.8000, 51.2200], r: 4500 },
+    { name: "Солтүстік-Шығыс өнеркәсіптік аймағы — өнеркәсіптік аумақ", c: [43.6628, 51.1976] },
+    { name: "ТЭЦ-1 өнеркәсіптік аймағы — ТЭЦ жанындағы аймақ", c: [43.6512, 51.1884] },
+    { name: "МАЭК өнеркәсіптік аймағы — энергетикалық аймақ", c: [43.7002, 51.2851] },
+    { name: "Ақтау теңіз порты — порттық және өнеркәсіптік аумақ", c: [43.6009, 51.2284] },
+    { name: "Мұнай терминалдары — мұнай сақтау нысандары", c: [43.6027, 51.2356] },
+    { name: "Баянды қатты тұрмыстық қалдық полигоны — қалдықтар полигоны", c: [43.7563, 51.3074] },
+    { name: "Ескі қоқыс полигоны (солтүстік) — ластану көзі", c: [43.6734, 51.3321] },
+    { name: "Рұқсатсыз қоқыс (шығыс) — рұқсатсыз қоқыс алаңы", c: [43.6611, 51.2108] },
+    { name: "32 мкр ластанған бос жерлер — ластанған аумақ", c: [43.6682, 51.2043] }
+  ];
+
+  /* ===== ОТРИСОВКА ЗЕЛЁНЫХ ЗОН ===== */
+  greenZones.forEach(z => {
+    L.circle(z.c, {
+      radius: 250,
+      color: '#2e7d32',
+      fillColor: '#66bb6a',
+      fillOpacity: 0.6
+    })
+    .addTo(map)
+    .bindPopup(`<b>${z.name}</b><br>🌿 Жасыл аймақ`);
+  });
+
+  /* ===== ОТРИСОВКА ОПАСНЫХ ЗОН ===== */
+  dangerousZones.forEach(z => {
+    if (z.circle) {
+      L.circle(z.c, {
+        radius: z.r,
+        color: '#b71c1c',
+        fillColor: '#ef5350',
+        fillOpacity: 0.5
+      })
+      .addTo(map)
+      .bindPopup(`<b>${z.name}</b><br>☢ Қауіпті аймақ`);
+    } else {
+      L.circle(z.c, {
+        radius: 300,
+        color: '#c62828',
+        fillColor: '#ef5350',
+        fillOpacity: 0.6
+      })
+      .addTo(map)
+      .bindPopup(`<b>${z.name}</b><br>⚠ Ластанған аймақ`);
+    }
+  });
+</script>
+
+</body>
+</html>

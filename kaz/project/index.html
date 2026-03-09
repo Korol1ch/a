@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoSen — Қоқысты анықтау</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <style>
+    .map-button-container {
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #open-map {
+      background-color: #3cb371;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #open-map:hover {
+      background-color: #2e8b57;
+    }
+
+    /* чтобы кнопка всегда была внизу секции */
+    .results-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 450px;
+    }
+
+    .results-section h2 {
+      margin-top: 0;
+    }
+
+    #label-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding-bottom: 10px;
+    }
+
+
+  </style>
+
+  
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="header-section">
+        <a href="../../index.html"><p class="logo">EcoSen</p></a>
+        <div style="width: 40vw;" class="menu">
+          <a href="../AboutUs/index.html"><p class="menu-text">Біз туралы</p></a>
+          <a href="#"><p class="menu-text">Сұрыптау</p></a>
+          <a href="../Karta/index.html"><p class="menu-text">Карта</p></a>
+          <a href="../projects/index.html"><p class="menu-text">Жобалар</p></a>
+          <a href="#"><p class="menu-text">Жаңалықтар</p></a>
+        </div>
+      </div>
+    </div>
+
+    <section class="section2">
+      <div class="section2-section">
+        <div class="upload-section">
+          <h1>Суретті жүктеңіз ♻️</h1>
+          <div id="image-container">
+            <img id="uploaded-image" src="" alt="Сіздің суретіңіз" />
+          </div>
+          <div class="file-upload">
+            <label for="image-upload" class="file-upload-label">Файл таңдау</label>
+            <input type="file" id="image-upload" accept="image/*">
+          </div>
+        </div>
+
+        <div class="results-section">
+          <h2>Анықталған ақпарат</h2>
+          <div id="label-container">Талдау үшін суретті таңдаңыз</div>
+
+          <!-- Кнопка всегда внизу -->
+          <div class="map-button-container">
+            <button id="open-map">♻️ Қай жерге өткізуге болады?</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section3">
+      <div class="section3-section">
+        <div class="box">
+          <img src="img/conteiners/img 1.png" height="100%">
+          <div class="text1">Қағаз және картон жәшігі</div>
+          <div class="text2">
+            Қабылдайды: газет, журнал, дәптер, кеңсе қағазы, картон қораптар.
+
+            Қабылдамайды: майлы немесе ластанған қағаз, ламинацияланған қағаз, бір реттік майлықтар.
+
+            Маңызы: қағазды қайта өңдеу арқылы жаңа дәптер, картон қорап, орауыш материалдар жасалады. Бұл орманды қорғауға көмектеседі.
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="img/conteiners/img 2.png" height="100%">
+          <div class="text1">Шыны жәшігі</div>
+          <div class="text2">
+            Қабылдайды: шыны бөтелкелер, банкалар.
+
+            Қабылдамайды: айна, фарфор, керамика, шамдар.
+
+            Маңызы: шыныны қайта өңдеу шексіз рет жасала береді, сапасы төмендемейді. Энергияны үнемдейді.
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="img/conteiners/img 3.png" height="100%">
+          <div class="text1">Пластик пен металл жәшігі</div>
+          <div class="text2">
+            Қабылдайды: ПЭТ бөтелкелер, пластик ыдыстар, алюминий банкілер, консерві банкалары.
+
+            Қабылдамайды: батареялар, тұрмыстық техника, медициналық қалдықтар.
+
+            Маңызы: пластик қайта өңделіп, жаңа бөтелке, қаптама, тоқыма талшығы (мысалы, киімге арналған полиэстер) жасалады. 
+            Металл қайта балқытылып, өндірісте қайта қолданылады.
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="img/conteiners/img 4.png" height="100%">
+          <div class="text1">Органикалық қалдық жәшігі</div>
+          <div class="text2">
+            Қабылдайды: ас қалдықтары, жеміс-жидек қабықтары, жапырақтар, бақша қалдықтары.
+
+            Қабылдамайды: пластик, шыны, металл.
+
+            Маңызы: органикалық қалдықтардан компост жасалып, ауыл шаруашылығында тыңайтқыш ретінде қолданылады. 
+            Бұл топырақ құнарлылығын арттырады.
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="img/conteiners/img 5.png" height="100%">
+          <div class="text1">Аралас қалдық жәшігі</div>
+          <div class="text2">
+            Қабылдайды: қайта өңдеуге жарамсыз қалдықтар (шаң, ластанған қағаз, бір реттік жөргек, сынған тұрмыстық заттар).
+
+            Маңызы: бұл қалдықтар көбіне полигонға жіберіледі немесе өртеу қондырғыларында жойылады. 
+            Сондықтан мұнда тек шынымен өңдеуге келмейтін заттарды тастау керек.
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="img/conteiners/img 6.png" height="100%">
+          <div class="text1">Қауіпті қалдық жәшігі</div>
+          <div class="text2">
+            Қабылдайды: батареялар, аккумуляторлар, шамдар, химиялық заттар, дәрі қалдықтары.
+
+            Маңызы: мұндай қалдықтар қоршаған ортаға және адам денсаулығына қауіпті. Арнайы өңдеу орындарына жіберіледі.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2025 EcoSen. Барлық құқықтар қорғалған.</p>
+      <p>Ақтау, Қазақстан | info@ecosen.kz | +7 (700) 123-45-67</p>
+      <p>
+        Біз әлеуметтік желілердеміз:
+        <a href="#">Instagram</a> |
+        <a href="https://www.youtube.com/@ecosen">YouTube</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+  <script>
+  const URL = "https://teachablemachine.withgoogle.com/models/4cC54KsZN/";
+  let model, labelContainer, imageElement;
+
+  const wasteInfo = {
+    "Пластик": { title: "♻️ Пластик", text: "Пластикалық бұйымдарды жуып, түрлеріне қарай өткізіңіз: PET, HDPE, PP және т.б." },
+    "Plastic": { title: "♻️ Пластик", text: "Пластикалық бұйымдарды жуып, түрлеріне қарай өткізіңіз: PET, HDPE, PP және т.б." },
+
+    "Бумага": { title: "📄 Қағаз", text: "Таза қағазды кір қағаздан бөліңіз. Газеттер, картон және кеңсе қағазы жарамды." },
+    "Paper": { title: "📄 Қағаз", text: "Таза қағазды кір қағаздан бөліңіз. Газеттер, картон және кеңсе қағазы жарамды." },
+
+    "Картон": { title: "📦 Картон", text: "Картон қайта өңделеді! Скотчты алып, қорапты тапсырар алдында жазып қойыңыз." },
+    "Cardboard": { title: "📦 Картон", text: "Картон қайта өңделеді! Скотчты алып, қорапты тапсырар алдында жазып қойыңыз." },
+
+    "Стекло": { title: "🍾 Шыны", text: "Қақпақтарды алып, жуып, түстеріне қарай өткізіңіз." },
+    "Glass": { title: "🍾 Шыны", text: "Қақпақтарды алып, жуып, түстеріне қарай өткізіңіз." },
+
+    "Металл": { title: "🥫 Металл", text: "Металл банкілер мен қақпақтар қайта өңделеді. Оларды сығыңыз." },
+    "Metal": { title: "🥫 Металл", text: "Металл банкілер мен қақпақтар қайта өңделеді. Оларды сығыңыз." },
+
+    "Органика": { title: "🌱 Органика", text: "Органикалық қалдықтарды топыраққа тыңайтқыш ретінде компост жасауға болады." },
+    "Organic": { title: "🌱 Органика", text: "Органикалық қалдықтарды топыраққа тыңайтқыш ретінде компост жасауға болады." }
+  };
+
+  async function init() {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+
+    labelContainer = document.getElementById("label-container");
+    labelContainer.innerHTML = "Модель жүктелуде...";
+    model = await tmImage.load(modelURL, metadataURL);
+    labelContainer.innerHTML = "Талдау үшін суретті таңдаңыз";
+
+    const imageUpload = document.getElementById("image-upload");
+    imageElement = document.getElementById("uploaded-image");
+    imageUpload.addEventListener("change", handleImage);
+  }
+
+  function handleImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imageElement.src = e.target.result;
+        imageElement.onload = async () => {
+          labelContainer.innerHTML = "Талдау жүріп жатыр...";
+          await predict();
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async function predict() {
+    const prediction = await model.predict(imageElement);
+    prediction.sort((a, b) => b.probability - a.probability);
+    labelContainer.innerHTML = "";
+
+    const best = prediction[0];
+    const infoBlock = document.createElement("div");
+    infoBlock.className = "waste-info";
+
+    if (best.probability >= 0.7 && wasteInfo[best.className]) {
+      infoBlock.innerHTML = `
+        <h3>${wasteInfo[best.className].title}</h3>
+        <p>${wasteInfo[best.className].text}</p>
+        <p><strong>Уверенность:</strong> ${(best.probability * 100).toFixed(1)}%</p>
+        <p>✅ Материал перерабатывается — сдайте его в ближайший пункт.</p>
+      `;
+    } else if (best.probability >= 0.4 && wasteInfo[best.className]) {
+      infoBlock.innerHTML = `
+        <h3>${wasteInfo[best.className].title}</h3>
+        <p>${wasteInfo[best.className].text}</p>
+        <p><strong>Уверенность:</strong> ${(best.probability * 100).toFixed(1)}%</p>
+        <p>⚠️ Модель не полностью уверена — проверьте вручную.</p>
+      `;
+    } else {
+      infoBlock.innerHTML = `
+        <h3>ℹ️ Информация</h3>
+        <p>Модель не смогла определить материал. Попробуйте другое фото.</p>
+      `;
+    }
+
+    labelContainer.appendChild(infoBlock);
+  }
+
+  init();
+  </script>
+
+  <script>
+  document.getElementById("open-map").addEventListener("click", () => {
+    // Открывает 2ГИС карту Актау с местами приёма мусора
+    window.open("https://2gis.kz/aktau/search/%D0%BF%D1%83%D0%BD%D0%BA%D1%82%D1%8B%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0%20%D0%B0%D0%BA%D1%82%D0%B0%D1%83?m=51.226992%2C43.658538%2F12.83", "_blank");
+  });
+</script>
+</body>
+</html>
