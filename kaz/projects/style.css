@@ -145,9 +145,30 @@
       align-items: center;
     }
 
-    .box-video iframe {
+    .box-video iframe, .a1 {
       width: 40vw;
       height: 40vh;
+      background-color: black;
+      overflow: hidden;
+      border-radius: 1vw;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .a1 img {
+      width: 100%;
+      height: 100%;
+      opacity: 0.35;
+    }
+
+    .a1 p {
+      position: absolute;
+      font-size: 1.7vw;
+      color: white;
+      font-weight: 700;
+      text-shadow: 0.2vw 0.2vw 0.5vw rgba(0, 0, 0, 0.5);
     }
 
 
@@ -238,6 +259,51 @@
     .text p {
       top: 3vh;
       position: relative;
+    }
+
+    .section2 {
+      width: 100%;
+      height: 135vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .section2 section {
+      width: 85%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .section2 img {
+      width: 40vw;
+      height: 80vh;
+      box-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.15);
+      border-radius: 1vw;
+    }
+
+     .section2 div {
+      width: 40vw;
+      height: 60vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+
+      font-size: 1.1vw;
+      white-space: pre-line;
+      color: black;
+      top: 10vh;
+    }
+
+    .section2-text {
+      font-size: 1.1vw;
+      white-space: pre-line;
+      color: black;
+      position: absolute;
+      bottom: 2vh;
+      left: 0;
     }
 
 
